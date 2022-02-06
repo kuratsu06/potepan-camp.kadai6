@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Schedule</title>
+    <title>スケジュール管理アプリ</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -9,6 +9,38 @@
   </head>
 
   <body>
+    <header>
+      <hgroup>
+        <h>Ruby on Rails スケジュール管理アプリ</h>
+      </hgroup>
+    </header>
+    
+    <main>
     <%= yield %>
+    </main>
+    
+    <footer>
+      <h>現在の日時：<span id="realtime"></span> 
+      <% if controller.action_name == "index" %>
+        スケジュール合計：<%= @posts.count %></h>
+      <% end %>
+    </footer>
+    
+    <script type="text/javascript">
+      document.getElementById("realtime").innerHTML = getNow();
+
+      function getNow() {
+        var now = new Date();
+        var year = now.getFullYear();
+        var month = ("0" + (now.getMonth() +1)).slice(-2);
+        var day = ("0" + now.getDate()).slice(-2);
+        
+        var s = year + '年' + month + '月' + day + '日';
+        return s;
+      }
+      
+      
+    </script>
+  
   </body>
 </html>
